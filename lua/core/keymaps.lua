@@ -13,4 +13,5 @@ local keymap = vim.keymap
 --   term_mode = 't',
 --   command_mode = 'c',
 
-keymap.set("c", "e", "Explore")
+-- nvim-tree
+keymap.set("c", "e", "NvimTreeToggle")

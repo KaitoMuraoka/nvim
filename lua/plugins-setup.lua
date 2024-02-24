@@ -26,15 +26,12 @@ end
 
 return packer.startup(function(use)
   use("wbthomason/packer.nvim")
+  use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
   use("rebelot/kanagawa.nvim") -- kanagawa colorscheme
-  
   use("szw/vim-maximizer")
-
-  -- essential plugins
-  use("tpope/vim-surround")
-
-  -- commenting plugins
-  use("numToStr/Comment.nvim")
+  use("tpope/vim-surround") -- essential plugins
+  use("numToStr/Comment.nvim") -- commenting with gc
+  use("nvim-tree/nvim-tree.lua") -- file explorer
 
   if packer_bootstrap then
     require("packer").sync()
