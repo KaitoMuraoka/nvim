@@ -32,6 +32,8 @@ return packer.startup(function(use)
   use("tpope/vim-surround") -- essential plugins
   use("numToStr/Comment.nvim") -- commenting with gc
   use("nvim-tree/nvim-tree.lua") -- file explorer
+  use("nvim-tree/nvim-web-devicons") -- icons
+  use("nvim-lualine/lualine.nvim") -- statusline
 
   if packer_bootstrap then
     require("packer").sync()

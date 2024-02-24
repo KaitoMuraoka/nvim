@@ -14,4 +14,4 @@ local keymap = vim.keymap
 --   command_mode = 'c',
 
 -- nvim-tree
-keymap.set("c", "e", "NvimTreeToggle")
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
