@@ -17,3 +17,10 @@ local keymap = vim.keymap
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 keymap.set("n", "<leader>f", ":NvimTreeFindFile<CR>")
 
+-- telescope
+keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
+keymap.set("n", "<C-s>", "<cmd>Telescope live_grep<cr>")
+keymap.set("n", "<C-c>", "<cmd>Telescope grep_string<cr>")
+keymap.set("n", "<C-b>", "<cmd>Telescope buffers<cr>")
+keymap.set("n", "<C-h>", "<cmd>Telescope help_tags<cr>")
+
