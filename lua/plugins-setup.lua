@@ -27,6 +27,14 @@ end
 return packer.startup(function(use)
   use("wbthomason/packer.nvim")
   use("rebelot/kanagawa.nvim") -- kanagawa colorscheme
+  
+  use("szw/vim-maximizer")
+
+  -- essential plugins
+  use("tpope/vim-surround")
+
+  -- commenting plugins
+  use("numToStr/Comment.nvim")
 
   if packer_bootstrap then
     require("packer").sync()
