@@ -37,6 +37,16 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- telescope Fuzzy Finder
   use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- telescope Fuzzy Finder
 
+  -- autocompletion
+  use("hrsh7th/nvim-cmp")
+  use("hrsh7th/cmp-buffer")
+  use("hrsh7th/cmp-path")
+
+  -- snippets
+  use("L3MON4D3/LuaSnip") -- Lua
+  use("saadparwaiz1/cmp_luasnip") --Lua
+  use("rafamadriz/friendly-snippets") -- something language
+
   if packer_bootstrap then
     require("packer").sync()
   end
