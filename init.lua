@@ -10,6 +10,7 @@ require("plugins.telescope")
 require("plugins.nvim-cmp")
 require("plugins.autopairs")
 require("plugins.treesitter")
+require("plugins.gitsigns")
 -- lsp-setup
 require("plugins.lsp.mason")
 require("plugins.lsp.lspconfig")
