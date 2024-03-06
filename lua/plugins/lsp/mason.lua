@@ -25,6 +25,8 @@ mason_lspconfig.setup({
 		"marksman", -- Markdown
 		"clangd", -- C/C++
 		"cmake", -- cmake
+		"ruby_ls", -- Ruby
+		"rust_analyzer", -- Rust
 	},
 })
 
