@@ -27,6 +27,7 @@ mason_lspconfig.setup({
 		"cmake", -- cmake
 		"ruby_ls", -- Ruby
 		"rust_analyzer", -- Rust
+		"jdtls", -- java
 	},
 })
 
