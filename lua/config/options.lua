@@ -14,7 +14,7 @@ opt.expandtab = true -- タブをスペースに展開する
 opt.autoindent = true -- 新しい行を始めるときに現在の行のインデントをコピーする
 
 -- 行の折り返し
-opt.wrap = false -- 行の折り返しを無効にする
+opt.wrap = true -- 行の折り返しを有効にする
 
 -- 検索設定
 opt.ignorecase = true -- 検索時に大文字と小文字を区別しない。
