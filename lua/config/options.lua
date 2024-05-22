@@ -31,7 +31,8 @@ opt.signcolumn = "yes" -- テキストがずれないように符号列を表示
 opt.backspace = "indent,eol,start" -- インデント、行末、挿入モードの開始位置でバックスペースを許可する。
 
 -- クリップボード
-opt.clipboard:append("unnamedplus") --システムのクリップボードをデフォルトのレジスタとして使う-- ウィンドウの分割
+opt.clipboard:append("unnamedplus") --システムのクリップボードをデフォルトのレジスタとして使う
+-- ウィンドウの分割
 
 opt.splitright = true -- 垂直ウィンドウを右に分割
 opt.splitbelow = true -- 水平ウィンドウを下に分割する
