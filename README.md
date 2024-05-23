@@ -6,3 +6,4 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 ## Add Package
 
 - [Markdown.nvim](https://github.com/MeanderingProgrammer/markdown.nvim)
+- [nvim-navbuddy](https://github.com/SmiteshP/nvim-navbuddy)
