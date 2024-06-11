@@ -32,6 +32,8 @@ return {
         "emmet_ls",
         "graphql",
         "html",
+        "java-debug-adapter",
+        "java-test",
         "prismals",
         "pyright",
         "lua_ls",
