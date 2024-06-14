@@ -27,13 +27,10 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "codelldb",
         "cssls",
         "emmet_ls",
         "graphql",
         "html",
-        "java-debug-adapter",
-        "java-test",
         "prismals",
         "pyright",
         "lua_ls",
