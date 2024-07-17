@@ -1,18 +1,2 @@
-require("plugins-setup")
-require("core.options")
-require("core.keymaps")
-require("core.colorscheme")
--- plugins-setup
-require("plugins.comment")
-require("plugins.nvim-tree")
-require("plugins.lualine")
-require("plugins.telescope")
-require("plugins.nvim-cmp")
-require("plugins.autopairs")
-require("plugins.treesitter")
-require("plugins.gitsigns")
--- lsp-setup
-require("plugins.lsp.mason")
-require("plugins.lsp.lspconfig")
-require("plugins.lsp.lspsaga")
-require("plugins.lsp.null-ls")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
