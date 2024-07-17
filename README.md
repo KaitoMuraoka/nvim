@@ -11,3 +11,4 @@ Current all line copy: `<C-c> + G`
 
 ## Add Package
 - [Markdown.nvim](https://github.com/MeanderingProgrammer/markdown.nvim)
+- [Flutter tools](https://github.com/akinsho/flutter-tools.nvim)
