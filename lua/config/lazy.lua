@@ -15,6 +15,7 @@ require("lazy").setup({
   spec = {
     -- import/override with your plugins
     { import = "plugins" },
+    { import = "plugins.lsp" },
   },
   checker = { 
 	  enabled = true, -- automatically check for plugin updates
