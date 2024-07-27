@@ -18,7 +18,6 @@ dependencies = {
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-
     mason_lspconfig.setup_handlers({
 	    function (server_name)
 	    	lspconfig[server_name].setup({
@@ -36,6 +35,11 @@ lspconfig.sourcekit.setup {
             },
         },
     },
+}
+
+lspconfig.graphql.setup{
+	capabilities = capabilities,
+	filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 }
 
 lspconfig.emmet_ls.setup {
@@ -58,5 +62,4 @@ lspconfig.lua_ls.setup{
 	},
 }
 end,
-
 }
