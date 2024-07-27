@@ -12,6 +12,7 @@
 ### Editor
 
 - [todo-comment](https://github.com/folke/todo-comments.nvim)
+- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim)
 - neo-tree
 - whitch-key
 - gitsigns
