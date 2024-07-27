@@ -14,6 +14,7 @@
 - [todo-comment](https://github.com/folke/todo-comments.nvim)
 - neo-tree
 - whitch-key
+- gitsigns
 
 ### UI
 
