@@ -23,3 +23,4 @@
 - mini.icons
 - nvim-notify
 - bufferline
+- noice
