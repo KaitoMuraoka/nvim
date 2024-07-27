@@ -37,11 +37,6 @@ lspconfig.sourcekit.setup {
     },
 }
 
-lspconfig.graphql.setup{
-	capabilities = capabilities,
-	filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-}
-
 lspconfig.emmet_ls.setup {
 	capabilities = capabilities,
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
