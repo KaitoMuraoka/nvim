@@ -16,6 +16,7 @@
 - whitch-key
 - gitsigns
 - flash
+- nvim-autopairs
 
 ### UI
 
