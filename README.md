@@ -21,4 +21,5 @@
 
 - nui.nvim
 - mini.icons
+- nvim-notify
 - bufferline
