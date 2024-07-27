@@ -15,6 +15,7 @@
 - neo-tree
 - whitch-key
 - gitsigns
+- flash
 
 ### UI
 
