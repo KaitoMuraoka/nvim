@@ -6,3 +6,4 @@
 - [toggleterm](https://github.com/akinsho/toggleterm.nvim)
 - [comment.nvim](https://github.com/numToStr/Comment.nvim)
 - [image-clip.nvim](https://github.com/HakonHarnes/img-clip.nvim)
+- [todo-comment](https://github.com/folke/todo-comments.nvim)
