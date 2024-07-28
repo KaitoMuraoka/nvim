@@ -26,3 +26,4 @@
 - nvim-notify
 - bufferline
 - noice
+- [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
