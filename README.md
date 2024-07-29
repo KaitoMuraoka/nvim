@@ -18,6 +18,7 @@
 - gitsigns
 - flash
 - nvim-autopairs
+- luaSnip
 - xcode-builder
 
 ### UI
