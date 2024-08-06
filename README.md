@@ -1,5 +1,9 @@
 # とんとんぼ's NeoVim
 
+## Options Setting
+
+TBD
+
 ## Add Package
 
 - [Markdown.nvim](https://github.com/MeanderingProgrammer/markdown.nvim)
