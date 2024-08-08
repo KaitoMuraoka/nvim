@@ -6,4 +6,7 @@ return {
 	--   -- load the colorscheme here
 	--   vim.cmd([[colorscheme tokyonight]])
 	-- end,
+
+	-- Title: noctis-high-contrast
+	"iagorrr/noctishc.nvim",
 }
