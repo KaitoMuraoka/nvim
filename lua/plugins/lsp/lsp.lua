@@ -10,7 +10,7 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 		vim.api.nvim_create_autocmd("LspAttach", {
 			desc = "LSP Actions",
-			callback = function(args)
+			callback = function()
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true })
 				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 			end,
@@ -51,7 +51,17 @@ return {
 
 		lspconfig.emmet_ls.setup({
 			capabilities = capabilities,
-			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+			filetypes = {
+				"astro",
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+			},
 		})
 
 		--lua
@@ -67,6 +77,11 @@ return {
 					},
 				},
 			},
+		})
+
+		-- ccls
+		lspconfig.ccls.setup({
+			capabilities = capabilities,
 		})
 	end,
 }

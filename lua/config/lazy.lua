@@ -10,7 +10,6 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]]) -- 背景をターミナルと同じにする
 
 require("lazy").setup({
 	spec = {
