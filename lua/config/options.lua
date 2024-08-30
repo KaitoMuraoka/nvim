@@ -8,6 +8,7 @@ opt.number = true -- 行番号を有効
 opt.wrap = true -- 行の折り返しを有効にします
 
 opt.relativenumber = true -- 絶対値行番号にする
+opt.modifiable = true
 
 -- tabs & indentation
 opt.tabstop = 2 -- タブ幅を2に設定
