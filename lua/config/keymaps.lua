@@ -17,4 +17,23 @@ keymap.set("n", "<C-q>", "<cmd>Neotree close<CR>")
 keymap.set("n", "<C-w>", "<cmd>Neotree toggle<CR>")
 
 -- LazyGit
-keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+keymap.set("n", "<leader>gl", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+
+-- opt
+keymap.set("n", "<leader>gi", "<cmd>Octo issue list<CR>", { desc = "List Issues (Octo)" })
+keymap.set("n", "<leader>gI", "<cmd>Octo issue search<CR>", { desc = "Search Issues (Octo)" })
+keymap.set("n", "<leader>gp", "<cmd>Octo pr list<CR>", { desc = "List PRs (Octo)" })
+keymap.set("n", "<leader>gP", "<cmd>Octo pr search<CR>", { desc = "Search PRs (Octo)" })
+keymap.set("n", "<leader>gr", "<cmd>Octo repo list<CR>", { desc = "List Repos (Octo)" })
+keymap.set("n", "<leader>gS", "<cmd>Octo search<CR>", { desc = "Search (Octo)" })
+
+-- { "<leader>a", "", desc = "+assignee (Octo)", ft = "octo" },
+-- { "<leader>c", "", desc = "+comment/code (Octo)", ft = "octo" },
+-- { "<leader>l", "", desc = "+label (Octo)", ft = "octo" },
+-- { "<leader>i", "", desc = "+issue (Octo)", ft = "octo" },
+-- { "<leader>r", "", desc = "+react (Octo)", ft = "octo" },
+-- { "<leader>p", "", desc = "+pr (Octo)", ft = "octo" },
+-- { "<leader>v", "", desc = "+review (Octo)", ft = "octo" },
+-- { "@", "@<C-x><C-o>", mode = "i", ft = "octo", silent = true },
+-- { "#", "#<C-x><C-o>", mode = "i", ft = "octo", silent = true },
+-- },
