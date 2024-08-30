@@ -15,3 +15,6 @@ keymap.set("n", "<leader>fc", builtin.git_branches, { desc = "Lists git commits"
 -- neo tree
 keymap.set("n", "<C-q>", "<cmd>Neotree close<CR>")
 keymap.set("n", "<C-w>", "<cmd>Neotree toggle<CR>")
+
+-- LazyGit
+keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
