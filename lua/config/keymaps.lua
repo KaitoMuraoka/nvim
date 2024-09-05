@@ -17,7 +17,7 @@ keymap.set("n", "<C-q>", "<cmd>Neotree close<CR>")
 keymap.set("n", "<C-w>", "<cmd>Neotree toggle<CR>")
 
 -- LazyGit
-keymap.set("n", "<leader>gl", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 
 -- opt
 keymap.set("n", "<leader>gi", "<cmd>Octo issue list<CR>", { desc = "List Issues (Octo)" })
