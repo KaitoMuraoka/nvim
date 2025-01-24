@@ -25,3 +25,23 @@ require("lazy").setup({
 		notify = false,
 	},
 })
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  pattern = "*",
+  callback = function()
+    -- ノーマルモードに戻るときにIMEをオフにする
+    vim.fn.system(vim.g.im_select_command .. " " .. vim.g.im_select_default)
+  end,
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  pattern = "*",
+  callback = function()
+    -- インサートモードに入ったときIMEを元の状態に戻す
+    local current_ime = vim.fn.system(vim.g.im_select_command)
+    if current_ime ~= vim.g.im_select_default then
+      vim.g.last_used_ime = current_ime
+    end
+  end,
+})
+
