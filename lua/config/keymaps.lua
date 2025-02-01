@@ -27,6 +27,19 @@ keymap.set("n", "<leader>gP", "<cmd>Octo pr search<CR>", { desc = "Search PRs (O
 keymap.set("n", "<leader>gr", "<cmd>Octo repo list<CR>", { desc = "List Repos (Octo)" })
 keymap.set("n", "<leader>gS", "<cmd>Octo search<CR>", { desc = "Search (Octo)" })
 
+-- lsp
+local opts = { noremap = true, silent = true }
+local lspbuf = vim.lsp.buf
+keymap.set("n", "gd", lspbuf.definition, opts) -- 定義への移動
+keymap.set("n", "gD", lspbuf.declaration, opts) -- 宣言へ移動
+keymap.set("n", "gr", lspbuf.references, opts) -- 参照箇所を表示
+keymap.set("n", "K", lspbuf.hover, opts) -- ドキュメントの表示
+
+-- WebSearhcer
+keymap.set("v", "<leader>ss", ":lua require('websearcher').search_selected()<CR>", { desc = "Default Search"})
+keymap.set("v", "<leader>se", ":lua require('websearcher').search_selected_with_engine()<CR>", { desc = "Select Search"})
+keymap.set("v", "<leader>sm", ":lua require('websearcher').search_selected_multiple()<CR>", { desc = "Multiple Search"})
+
 -- { "<leader>a", "", desc = "+assignee (Octo)", ft = "octo" },
 -- { "<leader>c", "", desc = "+comment/code (Octo)", ft = "octo" },
 -- { "<leader>l", "", desc = "+label (Octo)", ft = "octo" },
