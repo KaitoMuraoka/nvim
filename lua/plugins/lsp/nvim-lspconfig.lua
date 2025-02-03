@@ -3,8 +3,10 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require('lspconfig')
-    lspconfig.sourcekit.setup {
-      capabilities = {
+
+      -- Swift LSP設定を追加
+      lspconfig.sourcekit.setup {
+        capabilities = {
           workspace = {
             didChangeWatchedFiles = {
               dynamicRegistration = true,
@@ -37,6 +39,9 @@ return {
           },
         },
       })
+
+      -- Java LSP: 
+      -- Python LSP:
 
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP Actions",
