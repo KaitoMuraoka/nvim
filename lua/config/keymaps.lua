@@ -13,8 +13,8 @@ keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "List available help t
 keymap.set("n", "<leader>fc", builtin.git_branches, { desc = "Lists git commits" })
 
 -- neo tree
-keymap.set("n", "<C-q>", "<cmd>Neotree close<CR>")
-keymap.set("n", "<C-w>", "<cmd>Neotree toggle<CR>")
+-- keymap.set("n", "<C-q>", "<cmd>Neotree close<CR>")
+keymap.set("n", "<C-q>", "<cmd>Neotree toggle<CR>")
 
 -- LazyGit
 keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
@@ -30,10 +30,10 @@ keymap.set("n", "<leader>gS", "<cmd>Octo search<CR>", { desc = "Search (Octo)" }
 -- lsp
 local opts = { noremap = true, silent = true }
 local lspbuf = vim.lsp.buf
-keymap.set("n", "gd", lspbuf.definition, opts) -- 定義への移動
-keymap.set("n", "gD", lspbuf.declaration, opts) -- 宣言へ移動
-keymap.set("n", "gr", lspbuf.references, opts) -- 参照箇所を表示
-keymap.set("n", "K", lspbuf.hover, opts) -- ドキュメントの表示
+keymap.set("n", "gd", lspbuf.definition, { desc= "定義への移動" }) -- 定義への移動
+keymap.set("n", "gD", lspbuf.declaration, { desc = "宣言への移動" }) -- 宣言へ移動
+keymap.set("n", "gr", lspbuf.references, { desc = "参照箇所を表示" }) -- 参照箇所を表示
+keymap.set("n", "K", lspbuf.hover, { desc = "ドキュメントの表示" }) -- ドキュメントの表示
 
 -- WebSearhcer
 keymap.set("v", "<leader>ss", ":lua require('websearcher').search_selected()<CR>", { desc = "Default Search"})
