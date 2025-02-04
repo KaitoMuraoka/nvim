@@ -42,14 +42,22 @@ return {
 
       -- Java LSP: 
       -- lspconfig.java_language_server.setup{}
-      lspconfig.jdtls.setup {
-        cmd = { '/Users/kaitomuraoka/.local/share/nvim/mason/bin/jdtls' },
+      lspconfig.jdtls.setup ({
+     cmd = { vim.fn.stdpath("data") .. "/Users/kaitomuraoka/.local/share/nvim/mason/bin/jdtls" },
+        root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "build.gradle"),
         settings = {
           java = {
-            home = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home',
+            configuration = {
+              runtimes = {
+                {
+                  name = "Java 17.0.9",
+                  path = "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/java",  -- Java 17のパスを指定
+                },
+              },
+            },
           },
         },
-      }
+      })
 
       -- Python LSP:
 
