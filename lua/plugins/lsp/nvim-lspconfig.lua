@@ -41,6 +41,16 @@ return {
       })
 
       -- Java LSP: 
+      -- lspconfig.java_language_server.setup{}
+      lspconfig.jdtls.setup {
+        cmd = { '/Users/kaitomuraoka/.local/share/nvim/mason/bin/jdtls' },
+        settings = {
+          java = {
+            home = '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home',
+          },
+        },
+      }
+
       -- Python LSP:
 
       vim.api.nvim_create_autocmd('LspAttach', {
