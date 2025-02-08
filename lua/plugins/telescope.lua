@@ -6,6 +6,7 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
+    "delphinus/telescope-memo.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -22,6 +23,7 @@ return {
       end,
     })
 
+
     telescope.setup({
       defaults = {
         path_display = { "smart" },
@@ -37,6 +39,7 @@ return {
     })
 
     telescope.load_extension("fzf")
+    telescope.load_extension("memo")
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
