@@ -42,6 +42,8 @@ return {
 
       -- Java LSP: 
       -- Python LSP:
+      
+      lspconfig.bashls.setup({})
 
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP Actions",
