@@ -45,6 +45,9 @@ return {
       
       lspconfig.bashls.setup({})
 
+      -- gopls
+      lspconfig.gopls.setup({})
+
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = "LSP Actions",
         callback = function(args)
