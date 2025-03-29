@@ -1,6 +1,6 @@
 return {
-  dir = "~/personalDevelop/neovim-plugin/websearcher.nvim/", -- クローン
-  -- "KaitoMuraoka/websearcher.nvim"
+  --dir = "~/personalDevelop/neovim-plugin/websearcher.nvim/", -- クローン
+  "KaitoMuraoka/websearcher.nvim",
   config = {
 -- The shell command to use to open the URL.
 -- As an empty string, it defaults to your OS defaults("open" for macOS, "xdg-open" for Linux)
