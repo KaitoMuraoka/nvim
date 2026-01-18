@@ -1,0 +1,240 @@
+#+TITLE: Neovim Org-mode ガイド
+#+AUTHOR:
+#+STARTUP: overview
+
+* 概要
+
+このNeovim設定では、以下の4つのプラグインでOrg-modeを実現しています。
+
+| プラグイン            | 機能                       |
+|-----------------------|----------------------------|
+| nvim-orgmode          | コア機能（TODO、時間計測） |
+| org-bullets.nvim      | 見出しの視覚的装飾         |
+| telescope-orgmode     | ファジー検索               |
+| headlines.nvim        | 見出しのハイライト         |
+
+* ファイル構成
+
+#+begin_example
+~/org/
+├── main.org    # 個人用
+└── work.org    # 仕事用
+#+end_example
+
+各ファイルは以下の見出し構造を持ちます：
+
+#+begin_example
+#+TITLE: Personal
+#+STARTUP: overview
+
+* Tasks
+* Notes
+* Journal
+#+end_example
+
+* キーマップ一覧
+
+** グローバル（どこからでも使用可能）
+
+| キー           | 説明               |
+|----------------|--------------------|
+| =<leader>oa=   | アジェンダ表示     |
+| =<leader>oc=   | キャプチャ         |
+
+** Orgファイル内
+
+| キー           | 説明                           |
+|----------------|--------------------------------|
+| =<leader>ot=   | TODO状態を切替                 |
+| =<leader>oxi=  | Clock In（作業開始）           |
+| =<leader>oxo=  | Clock Out（作業終了）          |
+| =<leader>oxc=  | Clock Cancel（キャンセル）     |
+| =<leader>oxg=  | Clock Goto（計測中タスクへ）   |
+| =<leader>oxe=  | Effort設定                     |
+
+** Telescope検索
+
+| キー           | 説明               |
+|----------------|--------------------|
+| =<leader>os=   | 見出し検索         |
+| =<leader>or=   | Refile（移動）     |
+| =<leader>ol=   | リンク挿入         |
+
+* キャプチャテンプレート
+
+=<leader>oc= でキャプチャメニューが開きます。
+
+** Personal (p)
+
+| キー | 説明    | 保存先              |
+|------|---------|---------------------|
+| t    | Task    | ~/org/main.org      |
+| n    | Note    | ~/org/main.org      |
+| j    | Journal | ~/org/main.org      |
+
+** Work (w)
+
+| キー | 説明    | 保存先              |
+|------|---------|---------------------|
+| t    | Task    | ~/org/work.org      |
+| n    | Note    | ~/org/work.org      |
+| m    | Meeting | ~/org/work.org      |
+
+* TODO状態
+
+タスクは以下の状態を遷移します：
+
+#+begin_example
+TODO → DOING → DONE
+#+end_example
+
+- =<leader>ot= で状態を切り替え
+- DONE になると自動的に完了日時が記録される
+
+* 時間計測（Clock）
+
+** 基本的な使い方
+
+1. タスク上で =<leader>oxi= (Clock In)
+2. 作業を行う
+3. =<leader>oxo= (Clock Out)
+
+** 記録される内容
+
+時間は =:LOGBOOK:= ドロワーに自動記録されます：
+
+#+begin_example
+** DONE タスク名
+   CLOSED: [2026-01-18 Sat 15:00]
+   :LOGBOOK:
+   CLOCK: [2026-01-18 Sat 13:00]--[2026-01-18 Sat 15:00] =>  2:00
+   :END:
+#+end_example
+
+* 典型的なワークフロー
+
+** タスクを追加する
+
+1. =<leader>oc= でキャプチャメニューを開く
+2. =p= (Personal) または =w= (Work) を選択
+3. =t= (Task) を選択
+4. タスク名を入力
+5. =<C-c><C-c>= で保存（=<C-c><C-k>= でキャンセル）
+
+** タスクを管理する
+
+1. =<leader>oa= でアジェンダを表示
+2. タスクを選択してEnter
+3. =<leader>ot= でTODO → DOING に変更
+4. =<leader>oxi= で時間計測開始
+5. 作業完了後 =<leader>oxo= で計測終了
+6. =<leader>ot= でDOINGからDONEに変更
+
+** メモを素早く追加する
+
+1. =<leader>oc= → =p= → =n= (Personal Note)
+2. メモを入力
+3. =<C-c><C-c>= で保存
+
+** 見出しを検索する
+
+1. =<leader>os= でTelescope検索
+2. キーワードを入力
+3. Enterで該当箇所にジャンプ
+
+* Orgファイルの記法
+
+** 見出し
+
+#+begin_example
+* レベル1
+** レベル2
+*** レベル3
+#+end_example
+
+** TODO項目
+
+#+begin_example
+* TODO タスク名
+* DOING 作業中のタスク
+* DONE 完了したタスク
+#+end_example
+
+** チェックリスト
+
+#+begin_example
+- [ ] 未完了
+- [X] 完了
+#+end_example
+
+** リンク
+
+#+begin_example
+[[https://example.com][リンクテキスト]]
+[[file:./other.org][別のOrgファイル]]
+#+end_example
+
+** コードブロック
+
+#+begin_example
+#+begin_src python
+print("Hello, World!")
+#+end_src
+#+end_example
+
+** 日付
+
+| 記法         | 説明           |
+|--------------|----------------|
+| =<2026-01-18>= | 日付           |
+| =[2026-01-18]= | 非アクティブ   |
+| =SCHEDULED:=   | 予定日         |
+| =DEADLINE:=    | 締め切り       |
+
+* セットアップ
+
+** 初期ディレクトリ作成
+
+#+begin_src bash
+mkdir -p ~/org
+#+end_src
+
+** main.org作成
+
+#+begin_src bash
+cat > ~/org/main.org << 'EOF'
+#+TITLE: Personal
+#+STARTUP: overview
+
+* Tasks
+* Notes
+* Journal
+EOF
+#+end_src
+
+** work.org作成
+
+#+begin_src bash
+cat > ~/org/work.org << 'EOF'
+#+TITLE: Work
+#+STARTUP: overview
+
+* Tasks
+* Notes
+* Meetings
+EOF
+#+end_src
+
+* トラブルシューティング
+
+** ハイライトが効かない
+
+Treesitterのorgパーサーが必要です。nvim-orgmodeが自動でインストールしますが、問題がある場合はNeovimを再起動してください。
+
+** キャプチャで見出しが見つからない
+
+対象ファイルに =* Tasks= などの見出しが存在することを確認してください。
+
+** アジェンダに表示されない
+
+=org_agenda_files = "~/org/**/*"= の設定により、 =~/org/= 以下のすべての =.org= ファイルが対象になります。ファイルが正しい場所にあるか確認してください。

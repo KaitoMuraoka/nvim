@@ -1,0 +1,118 @@
+#+TITLE: Neovim Org-mode セットアップガイド
+#+STARTUP: overview
+
+* 初期セットアップ
+
+** 方法1: スクリプトで自動セットアップ（推奨）
+
+#+begin_src bash
+bash ~/.config/nvim/docs/setup-org.sh
+#+end_src
+
+これで以下が作成されます：
+- =~/org/main.org= (個人用)
+- =~/org/work.org= (仕事用)
+
+** 方法2: 手動セットアップ
+
+#+begin_src bash
+# ディレクトリ作成
+mkdir -p ~/org
+
+# main.org 作成
+cat > ~/org/main.org << 'EOF'
+#+TITLE: Personal
+#+STARTUP: overview
+
+* Tasks
+
+* Notes
+
+* Journal
+EOF
+
+# work.org 作成
+cat > ~/org/work.org << 'EOF'
+#+TITLE: Work
+#+STARTUP: overview
+
+* Tasks
+
+* Notes
+
+* Meetings
+EOF
+#+end_src
+
+* Neovim起動後の確認
+
+1. Neovimを起動
+2. 以下のコマンドでorgmodeが読み込まれているか確認：
+
+#+begin_example
+:lua print(vim.inspect(require('orgmode')))
+#+end_example
+
+エラーが出なければOK。
+
+* 動作確認
+
+| 操作                   | 期待結果                       |
+|------------------------|--------------------------------|
+| =<leader>oa=           | アジェンダ画面が開く           |
+| =<leader>oc=           | キャプチャメニューが表示       |
+| =nvim ~/org/work.org=  | ハイライトが効いて表示         |
+
+* キャプチャテスト
+
+1. =<leader>oc= を押す
+2. =w= (Work) を選択
+3. =t= (Task) を選択
+4. タスク名を入力（例: "テストタスク"）
+5. =<C-c><C-c>= で保存
+6. =~/org/work.org= を開いて確認
+
+* トラブルシューティング
+
+** プラグインが読み込まれない
+
+Lazyでプラグインをインストール：
+
+#+begin_example
+:Lazy sync
+#+end_example
+
+** ハイライトが効かない
+
+Neovimを再起動。orgパーサーは自動でインストールされます。
+
+** キャプチャでエラー
+
+対象ファイルに見出し（=* Tasks= など）が存在することを確認。
+
+* ドキュメント一覧
+
+| ファイル                | 内容                           |
+|-------------------------|--------------------------------|
+| =setup-guide.org=       | このセットアップガイド         |
+| =setup-org.sh=          | 自動セットアップスクリプト     |
+| =org-mode-guide.org=    | Org-mode機能の詳細ガイド       |
+| =how-to-use-work.org=   | プログラマー向け仕事活用ガイド |
+
+* クイックスタート
+
+セットアップ完了後、すぐに使い始めるには：
+
+#+begin_src bash
+# 1. セットアップ
+bash ~/.config/nvim/docs/setup-org.sh
+
+# 2. Neovim起動
+nvim
+
+# 3. タスク追加
+# <leader>oc → w → t → タスク入力 → <C-c><C-c>
+
+# 4. アジェンダ確認
+# <leader>oa
+#+end_src

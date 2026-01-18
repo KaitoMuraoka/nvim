@@ -1,0 +1,283 @@
+#+TITLE: プログラマーのための Org-mode 仕事活用ガイド
+#+AUTHOR:
+#+STARTUP: overview
+
+* はじめに
+
+このガイドでは、プログラマーが日常業務でOrg-modeを活用する方法を解説します。
+
+* 1日の流れ
+
+** 朝：今日のタスク確認
+
+=<leader>oa= でアジェンダを開き、今日のタスクを確認。
+
+** 作業開始
+
+1. タスク上で =<leader>oxi= (Clock In)
+2. =<leader>ot= で TODO → DOING に変更
+
+** 作業中のメモ
+
+タスクの下に直接メモを書くか、 =<leader>oc= → =w= → =n= でクイックメモ。
+
+** 作業完了
+
+1. =<leader>oxo= (Clock Out)
+2. =<leader>ot= で DOING → DONE
+
+** 終業前
+
+アジェンダで明日のタスクを確認・整理。
+
+* work.org の構成例
+
+#+begin_example
+#+TITLE: Work
+#+STARTUP: overview
+
+* Tasks
+** TODO [#A] 本番環境のバグ修正
+   SCHEDULED: <2026-01-18 Sat>
+   :PROPERTIES:
+   :CREATED: [2026-01-17 Fri 10:00]
+   :END:
+
+   - Issue: #1234
+   - 原因: APIのレスポンス形式変更
+
+** DOING PR レビュー対応
+   SCHEDULED: <2026-01-18 Sat>
+   :LOGBOOK:
+   CLOCK: [2026-01-18 Sat 10:00]--[2026-01-18 Sat 11:30] =>  1:30
+   :END:
+
+   - PR: #567
+   - レビュアー: 山田さん
+   - [ ] テスト追加
+   - [X] 型定義修正
+
+** TODO 新機能の設計書作成
+   DEADLINE: <2026-01-20 Mon>
+
+* Notes
+** API設計メモ
+   :PROPERTIES:
+   :CREATED: [2026-01-18 Sat 14:00]
+   :END:
+
+   #+begin_src
+   POST /api/v2/users
+   {
+     "name": "string",
+     "email": "string"
+   }
+   #+end_src
+
+* Meetings
+** 2026-01-18 スプリントプランニング
+   :PROPERTIES:
+   :ATTENDEES: 山田、佐藤、田中
+   :END:
+*** Agenda
+    - スプリント振り返り
+    - 次スプリントの計画
+*** Notes
+    - 認証機能を優先
+    - リファクタリングは後回し
+*** Action Items
+    - [ ] 山田: API設計
+    - [ ] 佐藤: フロント実装
+    - [X] 田中: テスト環境構築
+#+end_example
+
+* 実践的な使い方
+
+** バグ対応
+
+#+begin_example
+** TODO [#A] ログイン画面でエラーが発生
+   SCHEDULED: <2026-01-18 Sat>
+
+   - Issue: [[https://github.com/org/repo/issues/123][#123]]
+   - 報告者: CSチーム
+   - 環境: 本番
+
+*** 調査メモ
+    - エラーログ確認 → セッション切れ
+    - 再現手順: 30分放置後にログイン
+
+*** 原因
+    セッションタイムアウトの処理漏れ
+
+*** 対応
+    - [X] セッション切れ時のリダイレクト追加
+    - [X] テスト作成
+    - [ ] PRマージ
+#+end_example
+
+** コードレビュー
+
+#+begin_example
+** TODO PR #456 レビュー
+   SCHEDULED: <2026-01-18 Sat>
+
+   - PR: [[https://github.com/org/repo/pull/456][#456]]
+   - 作成者: 田中
+   - 変更: ユーザー認証リファクタリング
+
+*** レビューコメント
+    - L23: 変数名を明確に
+    - L45: エラーハンドリング追加
+    - L78: テストケース不足
+#+end_example
+
+** 機能開発
+
+#+begin_example
+** DOING ユーザープロフィール機能
+   DEADLINE: <2026-01-25 Fri>
+   :LOGBOOK:
+   CLOCK: [2026-01-18 Sat 13:00]--[2026-01-18 Sat 17:00] =>  4:00
+   CLOCK: [2026-01-17 Fri 10:00]--[2026-01-17 Fri 12:00] =>  2:00
+   :END:
+
+   - Epic: [[https://jira.example.com/browse/PROJ-100][PROJ-100]]
+
+*** タスク分解
+    - [X] DB設計
+    - [X] API実装
+    - [ ] フロント実装
+    - [ ] テスト
+    - [ ] ドキュメント
+
+*** 技術メモ
+    #+begin_src sql
+    CREATE TABLE user_profiles (
+      id SERIAL PRIMARY KEY,
+      user_id INT REFERENCES users(id),
+      bio TEXT,
+      avatar_url VARCHAR(255)
+    );
+    #+end_src
+#+end_example
+
+** 会議メモ
+
+#+begin_example
+** 2026-01-18 技術選定ミーティング
+   :PROPERTIES:
+   :ATTENDEES: 山田、佐藤、田中
+   :END:
+
+*** Agenda
+    - フレームワーク選定
+    - インフラ構成
+
+*** Notes
+    - React vs Vue → React に決定
+    - 理由: チームの経験、エコシステム
+    - インフラ: AWS ECS を検討
+
+*** Action Items
+    - [ ] 山田: React環境構築
+    - [ ] 佐藤: ECSの見積もり
+*** 決定事項
+    - フロント: React + TypeScript
+    - 状態管理: Zustand
+#+end_example
+
+* 優先度の使い方
+
+=[#A]=, =[#B]=, =[#C]= で優先度を設定：
+
+#+begin_example
+** TODO [#A] 本番障害対応（最優先）
+** TODO [#B] 今週中に対応
+** TODO [#C] 余裕があれば
+#+end_example
+
+* タグの活用
+
+#+begin_example
+** TODO バグ修正                                              :bug:urgent:
+** TODO ドキュメント更新                                      :docs:
+** TODO リファクタリング                                      :refactor:
+#+end_example
+
+* 便利なリンク記法
+
+** GitHub Issue/PR
+
+#+begin_example
+[[https://github.com/org/repo/issues/123][Issue #123]]
+[[https://github.com/org/repo/pull/456][PR #456]]
+#+end_example
+
+** Jira/チケット
+
+#+begin_example
+[[https://jira.example.com/browse/PROJ-100][PROJ-100]]
+#+end_example
+
+** ローカルファイル
+
+#+begin_example
+[[file:~/projects/app/src/main.ts][main.ts]]
+[[file:~/projects/app/README.md][README]]
+#+end_example
+
+* 週次レビュー
+
+週末に以下を実施：
+
+1. =<leader>oa= でアジェンダ確認
+2. 完了タスクの振り返り
+3. 未完了タスクの見直し・リスケジュール
+4. 来週のタスク追加
+
+* 時間集計
+
+LOGBOOKに記録された時間は、週報や工数報告に活用できます。
+
+#+begin_example
+:LOGBOOK:
+CLOCK: [2026-01-18 Sat 13:00]--[2026-01-18 Sat 17:00] =>  4:00
+CLOCK: [2026-01-17 Fri 10:00]--[2026-01-17 Fri 12:00] =>  2:00
+:END:
+合計: 6時間
+#+end_example
+
+* クイックリファレンス
+
+| 操作                 | キー             |
+|----------------------|------------------|
+| アジェンダ           | =<leader>oa=     |
+| タスク追加           | =<leader>oc w t= |
+| メモ追加             | =<leader>oc w n= |
+| 会議追加             | =<leader>oc w m= |
+| TODO切替             | =<leader>ot=     |
+| 作業開始             | =<leader>oxi=    |
+| 作業終了             | =<leader>oxo=    |
+| 見出し検索           | =<leader>os=     |
+
+* Tips
+
+** 朝一番にやること
+
+#+begin_src
+nvim ~/org/work.org
+<leader>oa
+#+end_src
+
+** 割り込みタスクが入ったら
+
+1. 現在のタスクを =<leader>oxo= でClock Out
+2. =<leader>oc w t= で新タスク追加
+3. 新タスクで =<leader>oxi=
+
+** 1日の終わりに
+
+1. すべてのClockをOut
+2. 明日のSCHEDULEDを確認
+3. 必要なら翌日のタスクを追加
