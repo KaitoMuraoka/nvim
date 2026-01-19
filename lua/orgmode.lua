@@ -185,7 +185,7 @@ M.clock_out = function()
   vim.notify("No active clock found", vim.log.levels.WARN)
 end
 
--- LOGBOOKにメモを追加
+-- LOGBOOKにメモを追加（複数行対応）
 M.add_logbook_note = function()
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
   local line_num = cursor_pos[1]
@@ -202,17 +202,74 @@ M.add_logbook_note = function()
     return
   end
 
-  -- メモの入力を求める
-  vim.ui.input({ prompt = "Note: " }, function(input)
-    if input and input ~= "" then
-      local timestamp = get_timestamp()
-      local note_line = string.format("   - %s %s", input, timestamp)
+  -- 元のバッファとウィンドウを保存
+  local origin_buf = vim.api.nvim_get_current_buf()
+  local origin_win = vim.api.nvim_get_current_win()
 
-      local buf = vim.api.nvim_get_current_buf()
-      vim.api.nvim_buf_set_lines(buf, logbook.start_line, logbook.start_line, false, { note_line })
-      vim.notify("Note added to LOGBOOK", vim.log.levels.INFO)
-    end
-  end)
+  -- 新しいバッファを作成
+  local note_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(note_buf, "buftype", "acwrite")
+  vim.api.nvim_buf_set_option(note_buf, "bufhidden", "wipe")
+  vim.api.nvim_buf_set_name(note_buf, "LOGBOOK Note")
+
+  -- 初期メッセージを設定
+  vim.api.nvim_buf_set_lines(note_buf, 0, -1, false, {
+    "# Write your note here (multiple lines supported)",
+    "# Save and quit (:wq or :x) to add to LOGBOOK",
+    "# Quit without saving (:q!) to cancel",
+    "",
+  })
+
+  -- 新しいウィンドウでバッファを開く
+  vim.cmd("split")
+  local note_win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_buf(note_win, note_buf)
+  vim.api.nvim_win_set_height(note_win, 10)
+
+  -- カーソルを編集開始位置に移動
+  vim.api.nvim_win_set_cursor(note_win, { 4, 0 })
+
+  -- 保存時の処理
+  vim.api.nvim_create_autocmd("BufWriteCmd", {
+    buffer = note_buf,
+    callback = function()
+      -- バッファの内容を取得（コメント行を除く）
+      local lines = vim.api.nvim_buf_get_lines(note_buf, 0, -1, false)
+      local content_lines = {}
+
+      for _, l in ipairs(lines) do
+        if not l:match("^#") and l ~= "" then
+          table.insert(content_lines, l)
+        end
+      end
+
+      -- 内容が空でない場合のみLOGBOOKに追加
+      if #content_lines > 0 then
+        local timestamp = get_timestamp()
+        local note_lines = {}
+
+        -- 最初の行にタイムスタンプを追加
+        if #content_lines == 1 then
+          table.insert(note_lines, string.format("   - %s %s", content_lines[1], timestamp))
+        else
+          -- 複数行の場合
+          table.insert(note_lines, string.format("   - %s %s", content_lines[1], timestamp))
+          for i = 2, #content_lines do
+            table.insert(note_lines, "     " .. content_lines[i])
+          end
+        end
+
+        -- 元のバッファに戻ってLOGBOOKに追加
+        vim.api.nvim_set_current_win(origin_win)
+        vim.api.nvim_buf_set_lines(origin_buf, logbook.start_line, logbook.start_line, false, note_lines)
+
+        vim.notify("Note added to LOGBOOK", vim.log.levels.INFO)
+      end
+
+      -- バッファを閉じる
+      vim.cmd("quit!")
+    end,
+  })
 end
 
 -- 見出しレベルを上げる（インデント）
