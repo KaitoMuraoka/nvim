@@ -71,6 +71,29 @@ local function calc_duration(start_time, end_time)
   return string.format("%d:%02d", hours, minutes)
 end
 
+-- 時間差を計算（分単位の数値を返す）
+local function calc_duration_minutes(start_time, end_time)
+  local start_pattern = "%[(%d+)-(%d+)-(%d+) %w+ (%d+):(%d+)%]"
+  local sy, sm, sd, sh, smin = start_time:match(start_pattern)
+  local ey, em, ed, eh, emin = end_time:match(start_pattern)
+
+  if not (sy and ey) then
+    return 0
+  end
+
+  local start_ts = os.time({year=sy, month=sm, day=sd, hour=sh, min=smin})
+  local end_ts = os.time({year=ey, month=em, day=ed, hour=eh, min=emin})
+
+  return math.floor((end_ts - start_ts) / 60)
+end
+
+-- 分を時間:分の形式に変換
+local function format_minutes(total_minutes)
+  local hours = math.floor(total_minutes / 60)
+  local minutes = total_minutes % 60
+  return string.format("%d:%02d", hours, minutes)
+end
+
 -- LOGBOOKセクションを探す、または作成する
 local function find_or_create_logbook(line_num)
   local buf = vim.api.nvim_get_current_buf()
@@ -296,6 +319,86 @@ M.demote_heading = function()
   end
 end
 
+-- ファイル全体のCLOCK時間を計算してレポート表示
+M.show_clock_report = function()
+  local buf = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+
+  local total_minutes = 0
+  local clock_entries = {}
+  local current_heading = "Unknown"
+
+  -- 全ての行をスキャン
+  for i, line in ipairs(lines) do
+    -- 見出しを追跡
+    local heading = line:match("^%*+ (.+)$")
+    if heading then
+      current_heading = heading
+    end
+
+    -- 完了したCLOCKエントリを探す（=>を含む）
+    local clock_match = line:match("^%s*CLOCK: (%[.-%])%-%-(%[.-%])%s*=>%s*(.+)$")
+    if clock_match then
+      local start_time, end_time, duration = line:match("^%s*CLOCK: (%[.-%])%-%-(%[.-%])%s*=>%s*(.+)$")
+      if start_time and end_time then
+        local minutes = calc_duration_minutes(start_time, end_time)
+        total_minutes = total_minutes + minutes
+
+        table.insert(clock_entries, {
+          heading = current_heading,
+          start_time = start_time,
+          end_time = end_time,
+          duration = duration,
+          minutes = minutes
+        })
+      end
+    end
+  end
+
+  -- レポートを生成
+  local report = {}
+  table.insert(report, "")
+  table.insert(report, "=== CLOCK Report ===")
+  table.insert(report, "")
+
+  if #clock_entries == 0 then
+    table.insert(report, "No completed clock entries found.")
+  else
+    table.insert(report, string.format("Total entries: %d", #clock_entries))
+    table.insert(report, string.format("Total time: %s", format_minutes(total_minutes)))
+    table.insert(report, "")
+    table.insert(report, "Details:")
+    table.insert(report, string.rep("-", 60))
+
+    for _, entry in ipairs(clock_entries) do
+      table.insert(report, string.format("• %s", entry.heading))
+      table.insert(report, string.format("  %s -- %s  =>  %s",
+        entry.start_time, entry.end_time, entry.duration))
+    end
+
+    table.insert(report, string.rep("-", 60))
+    table.insert(report, string.format("TOTAL: %s", format_minutes(total_minutes)))
+  end
+
+  table.insert(report, "")
+  table.insert(report, "Press q to close")
+
+  -- 新しいバッファを作成して表示
+  local report_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(report_buf, 0, -1, false, report)
+  vim.api.nvim_buf_set_option(report_buf, "modifiable", false)
+  vim.api.nvim_buf_set_option(report_buf, "buftype", "nofile")
+  vim.api.nvim_buf_set_option(report_buf, "bufhidden", "wipe")
+
+  -- 新しいウィンドウで開く
+  vim.cmd("split")
+  local win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_buf(win, report_buf)
+
+  -- qで閉じられるようにする
+  vim.api.nvim_buf_set_keymap(report_buf, "n", "q", ":close<CR>", { noremap = true, silent = true })
+end
+
 -- 見出しを折りたたむ設定
 M.setup_folding = function()
   vim.opt_local.foldmethod = "expr"
@@ -347,6 +450,9 @@ M.setup = function()
       -- LOGBOOK note
       vim.keymap.set("n", "<leader>on", M.add_logbook_note, vim.tbl_extend("force", opts, { desc = "Add logbook note" }))
 
+      -- CLOCK report
+      vim.keymap.set("n", "<leader>or", M.show_clock_report, vim.tbl_extend("force", opts, { desc = "Show CLOCK report" }))
+
       -- 見出しのレベル変更
       vim.keymap.set("n", "<M-Left>", M.promote_heading, vim.tbl_extend("force", opts, { desc = "Promote heading" }))
       vim.keymap.set("n", "<M-Right>", M.demote_heading, vim.tbl_extend("force", opts, { desc = "Demote heading" }))
@@ -354,6 +460,9 @@ M.setup = function()
       -- 折りたたみのキーマップ
       vim.keymap.set("n", "<Tab>", "za", vim.tbl_extend("force", opts, { desc = "Toggle fold" }))
       vim.keymap.set("n", "<S-Tab>", "zA", vim.tbl_extend("force", opts, { desc = "Toggle all folds" }))
+
+      -- コマンドを作成
+      vim.api.nvim_buf_create_user_command(0, "OrgClockReport", M.show_clock_report, { desc = "Show CLOCK time report" })
     end,
   })
 end

@@ -56,9 +56,9 @@ highlight default link orgHeading4 Title
 highlight default link orgHeading5 Title
 highlight default link orgHeading6 Title
 
-highlight default link orgTodo Todo
-highlight default orgDoing term=bold cterm=bold ctermfg=Yellow gui=bold guifg=Orange
-highlight default link orgDone Comment
+highlight default orgTodo term=bold cterm=bold ctermfg=Red gui=bold guifg=#FF6B6B
+highlight default orgDoing term=bold cterm=bold ctermfg=Blue gui=bold guifg=#4ECDC4
+highlight default orgDone term=bold cterm=bold ctermfg=Green gui=bold guifg=#95E1D3
 
 highlight default link orgListBullet Statement
 
