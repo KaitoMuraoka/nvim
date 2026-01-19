@@ -117,7 +117,7 @@ return {
 
   -- Telescope-orgmode: Fuzzy search for org files
   {
-    "nvim-telescope/telescope-orgmode.nvim",
+    "joaomsa/telescope-orgmode.nvim",
     dependencies = {
       "nvim-orgmode/orgmode",
       "nvim-telescope/telescope.nvim",
