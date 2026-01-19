@@ -1,13 +1,27 @@
 * プロジェクト管理
 
-** TODO 最低限のorg-mode実装
+** DOING 最低限のorg-mode実装
 Neovimで使えるシンプルなorg-mode機能を実装する
+   :LOGBOOK:
+   CLOCK: [2026-01-19 Sun 10:00]--[2026-01-19 Sun 12:30] =>  2:30
+   - 基本機能の実装完了 [2026-01-19 Sun 12:30]
+   CLOCK: [2026-01-19 Sun 14:00]
+   :END:
 
 *** DONE シンタックスハイライトの実装
-見出し、TODO/DONEキーワード、リストなどのハイライト
+見出し、TODO/DOING/DONEキーワード、リストなどのハイライト
+   :LOGBOOK:
+   CLOCK: [2026-01-19 Sun 09:00]--[2026-01-19 Sun 10:00] =>  1:00
+   :END:
 
-*** TODO TODO/DONE切り替え機能
+*** DONE TODO/DOING/DONE切り替え機能
 <leader>ot でTODO状態を切り替えられるようにする
+   :LOGBOOK:
+   - 3つの状態をサイクルできるように実装 [2026-01-19 Sun 11:00]
+   :END:
+
+*** TODO Clock In/Out機能
+作業時間を計測できるようにする
 
 *** TODO 折りたたみ機能
 見出しを折りたたんで、大きなドキュメントを管理しやすくする
@@ -44,3 +58,18 @@ Neovimで使えるシンプルなorg-mode機能を実装する
 - アジェンダビュー
 - タグによるフィルタリング
 - エクスポート機能
+
+** 新機能：Clock In/Out と LOGBOOK
+
+*** Clock In/Out の使い方
+1. タスクの見出し上で `<Space>oI` を押すと作業開始（Clock In）
+2. 作業が終わったら `<Space>oO` を押すと作業終了（Clock Out）
+3. 自動的に作業時間が計算されます
+
+*** LOGBOOK にメモを追加
+タスクに関するメモを残すには `<Space>on` を使用します。
+タイムスタンプ付きでメモが記録されます。
+
+*** DOING状態
+TODO -> DOING -> DONE の3段階でタスクを管理できます。
+`<Space>ot` で状態を切り替えます。
