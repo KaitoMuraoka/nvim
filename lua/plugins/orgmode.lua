@@ -6,8 +6,10 @@ return {
     ft = { "org" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim",
     },
     config = function()
+      -- Orgmodeのセットアップ
       require("orgmode").setup({
         org_agenda_files = "~/org/**/*",
         org_default_notes_file = "~/org/main.org",
@@ -93,6 +95,19 @@ return {
           },
         },
       })
+
+      -- nvim-orgmode組み込みのTelescope統合を使用
+      vim.keymap.set("n", "<leader>os", function()
+        require("orgmode").action("org_mappings.search_headings")
+      end, { desc = "Org Search Headlines" })
+
+      vim.keymap.set("n", "<leader>or", function()
+        require("orgmode").action("org_mappings.refile")
+      end, { desc = "Org Refile" })
+
+      vim.keymap.set("n", "<leader>ol", function()
+        require("orgmode").action("org_mappings.insert_link")
+      end, { desc = "Org Insert Link" })
     end,
   },
 
@@ -112,34 +127,6 @@ return {
           },
         },
       })
-    end,
-  },
-
-  -- Telescope-orgmode: Fuzzy search for org files
-  {
-    "joaomsa/telescope-orgmode.nvim",
-    dependencies = {
-      "nvim-orgmode/orgmode",
-      "nvim-telescope/telescope.nvim",
-    },
-    ft = { "org" },
-    config = function()
-      require("telescope").load_extension("orgmode")
-
-      -- Search headlines
-      vim.keymap.set("n", "<leader>os", function()
-        require("telescope").extensions.orgmode.search_headings()
-      end, { desc = "Org Search Headlines" })
-
-      -- Refile headline
-      vim.keymap.set("n", "<leader>or", function()
-        require("telescope").extensions.orgmode.refile_heading()
-      end, { desc = "Org Refile" })
-
-      -- Insert link
-      vim.keymap.set("n", "<leader>ol", function()
-        require("telescope").extensions.orgmode.insert_link()
-      end, { desc = "Org Insert Link" })
     end,
   },
 
