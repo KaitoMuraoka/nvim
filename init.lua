@@ -16,6 +16,3 @@ vim.g.maplocalleader = " "
 
 -- lazy.nvim読み込み
 require("config.lazy")
-
--- org-mode設定
-require("orgmode").setup()
