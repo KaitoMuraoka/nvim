@@ -57,6 +57,9 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls" },
+        automatic_enable = {
+          exclude = { "stylua" },
+        },
         handlers = {
           function(server_name)
             lspconfig[server_name].setup({
