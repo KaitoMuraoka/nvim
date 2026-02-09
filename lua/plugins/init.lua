@@ -4,11 +4,40 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    main = "nvim-treesitter",
     opts = {
-      ensure_installed = { "lua", "vim", "vimdoc", "org" },
+      ensure_installed = {
+        "lua",
+        "vim",
+        "vimdoc",
+        "org",
+        "javascript",
+        "typescript",
+        "tsx",
+        "python",
+        "html",
+        "css",
+        "json",
+        "yaml",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "go",
+        "rust",
+        "c",
+        "cpp",
+        "prisma",
+        "kotlin",
+        "java",
+      },
+      sync_install = false,
+      auto_install = true,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = { "org" },
+      },
+      indent = {
+        enable = true,
       },
     },
   },
@@ -27,7 +56,7 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls" },
+        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls" },
         handlers = {
           function(server_name)
             lspconfig[server_name].setup({
@@ -151,6 +180,42 @@ return {
     event = "InsertEnter",
     config = function()
       require("nvim-autopairs").setup()
+    end,
+  },
+
+  -- ターミナル
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    keys = {
+      { "<C-\\>", desc = "Toggle terminal" },
+      { "<leader>tf", desc = "Float terminal" },
+      { "<leader>th", desc = "Horizontal terminal" },
+      { "<leader>tv", desc = "Vertical terminal" },
+    },
+    config = function()
+      require("toggleterm").setup({
+        size = function(term)
+          if term.direction == "horizontal" then
+            return 15
+          elseif term.direction == "vertical" then
+            return vim.o.columns * 0.4
+          end
+        end,
+        open_mapping = [[<C-\>]],
+        direction = "horizontal",
+        float_opts = {
+          border = "curved",
+        },
+      })
+
+      -- キーマップ
+      vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float terminal" })
+      vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Horizontal terminal" })
+      vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { desc = "Vertical terminal" })
+
+      -- ターミナルモードでのエスケープ
+      vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
     end,
   },
 
