@@ -12,8 +12,25 @@ vim.opt.clipboard = "unnamedplus"
 
 -- 半透明な背景にする
 vim.opt.termguicolors = true
-vim.opt.winblend = 0 -- Windowの透明度
-vim.opt.pumblend = 0 -- ポップアップメニューの透明度
+vim.opt.winblend = 20 -- Windowの透明度 (0-100)
+vim.opt.pumblend = 20 -- ポップアップメニューの透明度 (0-100)
+
+-- 背景を透過させる（ターミナルの背景が透けて見える）
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+  end,
+})
+-- 初回読み込み時にも適用
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
 
 -- リーダーキー
 vim.g.mapleader = " "
