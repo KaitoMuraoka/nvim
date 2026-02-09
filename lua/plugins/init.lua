@@ -27,6 +27,8 @@ return {
         "c",
         "cpp",
         "prisma",
+        "kotlin",
+        "java",
       },
       sync_install = false,
       auto_install = true,
@@ -54,7 +56,7 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals" },
+        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls" },
         handlers = {
           function(server_name)
             lspconfig[server_name].setup({
