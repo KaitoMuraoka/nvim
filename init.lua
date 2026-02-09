@@ -10,6 +10,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 250
 vim.opt.clipboard = "unnamedplus"
 
+-- 半透明な背景にする
+vim.opt.termguicolors = true
+vim.opt.winblend = 0 -- Windowの透明度
+vim.opt.pumblend = 0 -- ポップアップメニューの透明度
+
 -- リーダーキー
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
