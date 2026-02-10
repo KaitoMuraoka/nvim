@@ -1,36 +1,38 @@
 -- 基本設定
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
-vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
-vim.opt.updatetime = 250
-vim.opt.clipboard = "unnamedplus"
+local vimOpt = vim.opt
+vimOpt.number = true
+vimOpt.relativenumber = true
+vimOpt.expandtab = true
+vimOpt.tabstop = 2
+vimOpt.shiftwidth = 2
+vimOpt.smartindent = true
+vimOpt.termguicolors = true
+vimOpt.signcolumn = "yes"
+vimOpt.updatetime = 250
+vimOpt.clipboard = "unnamedplus"
 
 -- 半透明な背景にする
-vim.opt.termguicolors = true
-vim.opt.winblend = 20 -- Windowの透明度 (0-100)
-vim.opt.pumblend = 20 -- ポップアップメニューの透明度 (0-100)
+vimOpt.termguicolors = true
+vimOpt.winblend = 20 -- Windowの透明度 (0-100)
+vimOpt.pumblend = 20 -- ポップアップメニューの透明度 (0-100)
 
 -- 背景を透過させる（ターミナルの背景が透けて見える）
-vim.api.nvim_create_autocmd("ColorScheme", {
+local vimApi = vim.api
+vimApi.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+   vimApi.nvim_set_hl(0, "Normal", { bg = "NONE" })
+   vimApi.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+   vimApi.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+   vimApi.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+   vimApi.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
   end,
 })
 -- 初回読み込み時にも適用
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+vimApi.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vimApi.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+vimApi.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vimApi.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+vimApi.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
 
 -- リーダーキー
 vim.g.mapleader = " "
