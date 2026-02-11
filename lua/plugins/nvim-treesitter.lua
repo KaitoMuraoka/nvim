@@ -1,0 +1,41 @@
+return {
+  -- Treesitter: シンタックスハイライト
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    main = "nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "lua",
+        "vim",
+        "vimdoc",
+        "javascript",
+        "typescript",
+        "tsx",
+        "python",
+        "html",
+        "css",
+        "json",
+        "yaml",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "go",
+        "rust",
+        "c",
+        "cpp",
+        "prisma",
+        "kotlin",
+        "java",
+      },
+      sync_install = false,
+      auto_install = true,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      indent = {
+        enable = true,
+      },
+    },
+}
