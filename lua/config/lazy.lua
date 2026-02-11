@@ -13,4 +13,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- プラグイン読み込み
-require("lazy").setup("plugins")
+require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } })
