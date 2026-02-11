@@ -9,7 +9,6 @@ return {
         "lua",
         "vim",
         "vimdoc",
-        "org",
         "javascript",
         "typescript",
         "tsx",
@@ -33,7 +32,7 @@ return {
       auto_install = true,
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "org" },
+        additional_vim_regex_highlighting = false,
       },
       indent = {
         enable = true,
