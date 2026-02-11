@@ -7,7 +7,7 @@
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         opts = {
-          ensure_installed = { "stylua" },
+          ensure_installed = { "stylua", "prettier" },
         },
       },
     },
@@ -18,7 +18,7 @@
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls" },
+        ensure_installed = { "lua_ls", "ts_ls", "eslint", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls" },
         automatic_enable = true,
         handlers = {
           function(server_name)
