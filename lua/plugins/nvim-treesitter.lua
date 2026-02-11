@@ -27,6 +27,7 @@ return {
         "prisma",
         "kotlin",
         "java",
+        "swift",
       },
       sync_install = false,
       auto_install = true,

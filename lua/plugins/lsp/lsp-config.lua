@@ -7,7 +7,7 @@
       {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         opts = {
-          ensure_installed = { "stylua" },
+          ensure_installed = { "stylua", "codelldb" },
         },
       },
     },
@@ -37,6 +37,26 @@
             })
           end,
         },
+      })
+
+      -- sourcekit-lsp for Swift (Masonでは管理不可、Xcode同梱)
+      lspconfig.sourcekit.setup({
+        capabilities = vim.tbl_deep_extend("force", capabilities, {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        }),
+        cmd = { "sourcekit-lsp" },
+        filetypes = { "swift", "objc", "objcpp" },
+        root_dir = lspconfig.util.root_pattern(
+          "buildServer.json",
+          "*.xcodeproj",
+          "*.xcworkspace",
+          "Package.swift",
+          ".git"
+        ),
       })
 
       -- LSPキーマップ
