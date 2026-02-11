@@ -49,6 +49,19 @@
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+          vim.keymap.set("n", "<leader>ey", function()
+            local diagnostics = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+            if #diagnostics == 0 then
+              vim.notify("No diagnostics on this line", vim.log.levels.INFO)
+              return
+            end
+            local messages = {}
+            for _, d in ipairs(diagnostics) do
+              table.insert(messages, d.message)
+            end
+            vim.fn.setreg("+", table.concat(messages, "\n"))
+            vim.notify("Diagnostic copied to clipboard", vim.log.levels.INFO)
+          end, opts)
         end,
       })
     end,
