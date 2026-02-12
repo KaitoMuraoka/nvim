@@ -20,6 +20,7 @@ lua/plugins/
 │   └── lsp-config.lua      # sourcekit-lsp 追加
 ├── conform.lua              # swiftformat 追加
 ├── nvim-treesitter.lua      # swift パーサー追加
+├── snacks.lua               # 新規: 画像表示（プレビュー用）
 ├── xcodebuild.lua           # 新規: ビルド・実行・テスト・プレビュー
 └── nvim-dap.lua             # 新規: デバッグ環境
 ```
@@ -349,7 +350,21 @@ macOS 標準の Terminal.app は非対応。
 
 ### Neovim 側の設定
 
-xcodebuild.nvim の依存に `snacks.nvim` を追加済み（セクション 5 参照）。キーマップも設定済み。
+プレビュー画像の表示には snacks.nvim の `image` snack が必要。独立したプラグイン設定として追加する。
+
+```lua
+-- lua/plugins/snacks.lua
+return {
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  opts = {
+    image = { enabled = true },
+  },
+}
+```
+
+xcodebuild.nvim の依存にも `snacks.nvim` を含めている（セクション 5 参照）。キーマップも設定済み。
 
 ### プロジェクト側の設定
 

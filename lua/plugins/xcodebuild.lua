@@ -4,7 +4,7 @@ return {
     "nvim-telescope/telescope.nvim",
     "MunifTanjim/nui.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "folke/snacks.nvim",
+    "folke/snacks.nvim", -- image snack でプレビュー画像を表示
   },
   config = function()
     require("xcodebuild").setup()
