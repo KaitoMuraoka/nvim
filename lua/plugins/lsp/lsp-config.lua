@@ -7,7 +7,7 @@ return {
      {
        "WhoIsSethDaniel/mason-tool-installer.nvim",
        opts = {
-         ensure_installed = { "stylua", "codelldb" },
+         ensure_installed = { "stylua", "codelldb", "ruff", "debugpy" },
        },
      },
    },

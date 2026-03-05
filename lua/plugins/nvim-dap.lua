@@ -4,6 +4,7 @@ return {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
     "wojciech-kulik/xcodebuild.nvim",
+    "mfussenegger/nvim-dap-python",
   },
   config = function()
     local dap = require("dap")
@@ -46,6 +47,9 @@ return {
         waitFor = true,
       },
     }
+
+    -- Python debugging via debugpy (Mason管理)
+    require("dap-python").setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
 
     vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
     vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue" })

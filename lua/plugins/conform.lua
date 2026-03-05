@@ -7,6 +7,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         swift = { "swiftformat" },
+        python = { "ruff_format" },
       },
       format_on_save = {
         timeout_ms = 500,
