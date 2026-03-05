@@ -7,10 +7,14 @@
       "hrsh7th/cmp-path",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       cmp.setup({
         snippet = {
@@ -45,11 +49,15 @@
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
         }, {
           { name = "buffer" },
           { name = "path" },
         }),
+        experimental = {
+          ghost_text = true,
+        },
       })
     end,
   }
