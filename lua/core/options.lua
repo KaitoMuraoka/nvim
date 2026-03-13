@@ -19,3 +19,12 @@ opt.foldenable = true
 opt.termguicolors = true
 opt.winblend = 20 -- Windowの透明度 (0-100)
 opt.pumblend = 20 -- ポップアップメニューの透明度 (0-100)
+
+-- ターミナルバッファでも行番号を表示する
+-- （Neovimはterm://バッファを開くと自動でnumber/relativenumberを無効にするため）
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.relativenumber = true
+  end,
+})
