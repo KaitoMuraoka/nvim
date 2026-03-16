@@ -1,3 +1,9 @@
+-- 言語設定
+vim.cmd.language('ja_JP.UTF-8')
+
+-- ヘルプファイルの言語設定
+vim.opt.helplang = { 'ja', 'en' }
+
 -- 基本設定
 local opt = vim.opt
 opt.number = true
