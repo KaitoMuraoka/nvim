@@ -7,7 +7,7 @@ return {
      {
        "WhoIsSethDaniel/mason-tool-installer.nvim",
        opts = {
-         ensure_installed = { "stylua", "codelldb", "goimports" },
+         ensure_installed = { "stylua", "codelldb", "goimports", "shfmt", "shellcheck" },
        },
      },
    },
@@ -51,7 +51,7 @@ return {
      })
 
      require("mason-lspconfig").setup({
-       ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls", "gopls" },
+       ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls", "gopls", "bashls" },
        automatic_enable = {
          exclude = { "stylua" },
        },
