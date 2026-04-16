@@ -8,6 +8,7 @@ return {
         lua = { "stylua" },
         swift = { "swiftformat" },
         go = { "goimports" },
+        sh = { "shfmt" },
       },
       format_on_save = {
         timeout_ms = 500,
