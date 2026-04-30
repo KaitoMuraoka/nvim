@@ -28,6 +28,9 @@ opt.termguicolors = true
 opt.winblend = 20 -- Windowの透明度 (0-100)
 opt.pumblend = 20 -- ポップアップメニューの透明度 (0-100)
 
+vim.cmd("language en_US.UTF-8")
+vim.o.statusline = "%f %m%r%h%w%= %y [%l,%c] %p%%"
+
 -- ターミナルバッファでも行番号を表示する
 -- （Neovimはterm://バッファを開くと自動でnumber/relativenumberを無効にするため）
 vim.api.nvim_create_autocmd("TermOpen", {
