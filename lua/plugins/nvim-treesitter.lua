@@ -28,6 +28,8 @@ return {
       "kotlin",
       "java",
       "swift",
+      "ruby",
+      "embedded_template",
     })
 
     vim.api.nvim_create_autocmd("FileType", {
