@@ -12,6 +12,7 @@ return {
       { "<leader>x", group = "Xcode" },
       { "<leader>d", group = "Debug" },
       { "<leader>t", group = "Terminal" },
+      { "<leader>T", group = "Test" },
       { "<leader>e", group = "Diagnostics" },
     })
   end,

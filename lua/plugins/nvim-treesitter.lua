@@ -28,6 +28,8 @@ return {
         "kotlin",
         "java",
         "swift",
+        "ruby",
+        "embedded_template",
       },
       sync_install = false,
       auto_install = true,

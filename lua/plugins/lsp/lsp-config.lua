@@ -60,6 +60,19 @@ return {
      -- sourcekit は Mason 管理外なので手動で有効化
      vim.lsp.enable("sourcekit")
 
+     -- ruby-lsp (Masonでは管理せず gem install したグローバル版を使う / rbenv shim経由)
+     -- Railsアプリを検出すると ruby-lsp-rails アドオンを composed bundle に自動追加し、
+     -- モデルのカラム/アソシエーション補完・実行時イントロスペクションを提供する。
+     vim.lsp.config("ruby_lsp", {
+       capabilities = capabilities,
+       init_options = {
+         formatter = "rubocop",
+         linters = { "rubocop" },
+       },
+       filetypes = { "ruby", "eruby" },
+     })
+     vim.lsp.enable("ruby_lsp")
+
      -- LSPキーマップ
      vim.api.nvim_create_autocmd("LspAttach", {
        callback = function(args)
