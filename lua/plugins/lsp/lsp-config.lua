@@ -76,8 +76,8 @@ return {
      vim.lsp.config("ruby_lsp", {
        capabilities = capabilities,
        init_options = {
-         formatter = "rubocop",
-         linters = { "rubocop" },
+         -- プロジェクトに rubocop があれば自動採用、無ければ無効化（補完は常に動作）
+         formatter = "auto",
        },
        filetypes = { "ruby", "eruby" },
      })
