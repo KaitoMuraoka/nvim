@@ -24,11 +24,16 @@ return {
     })
 
     -- neo-tree のツリーウィンドウでも行番号・相対行番号を表示する
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "neo-tree",
+    -- neo-tree はウィンドウ生成時に `setlocal nonumber norelativenumber` を
+    -- 強制実行するため、FileType だけでなく WinEnter でも上書きする
+    vim.api.nvim_create_autocmd({ "FileType", "WinEnter", "BufWinEnter" }, {
       callback = function()
-        vim.opt_local.number = true
-        vim.opt_local.relativenumber = true
+        if vim.bo.filetype == "neo-tree" then
+          vim.schedule(function()
+            vim.opt_local.number = true
+            vim.opt_local.relativenumber = true
+          end)
+        end
       end,
     })
   end,
