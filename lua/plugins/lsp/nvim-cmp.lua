@@ -16,6 +16,13 @@
       -- friendly-snippets (ruby/rails/eruby 等) を読み込む
       require("luasnip.loaders.from_vscode").lazy_load()
 
+      -- Rails スニペット(create_table 等)は filetype "rails" 紐付けのため、
+      -- ruby/eruby バッファでも展開できるよう拡張する
+      -- (ruby-lsp は ActiveRecord::Migration[x] のスーパークラスを解決できず
+      --  マイグレーション内の DSL 補完が出ないため、スニペットで補う)
+      luasnip.filetype_extend("ruby", { "rails" })
+      luasnip.filetype_extend("eruby", { "rails" })
+
       cmp.setup({
         snippet = {
           expand = function(args)
