@@ -20,6 +20,11 @@ return {
         -- netrw を無効化し、ディレクトリを開いた際は現在のウィンドウを
         -- neo-tree に置き換える（旧 nvim-tree の挙動に合わせる）
         hijack_netrw_behavior = "open_current",
+        filtered_items = {
+          -- ドットファイルなど隠しファイルを常に表示する
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
       },
     })
 
