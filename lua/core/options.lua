@@ -1,8 +1,6 @@
 -- 言語設定
 vim.cmd.language("ja_JP.UTF-8")
 
-vim.cmd([[let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro']])
-
 -- ヘルプファイルの言語設定
 vim.opt.helplang = { "ja", "en" }
 
