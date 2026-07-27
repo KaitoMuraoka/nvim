@@ -30,6 +30,16 @@ return {
        },
      })
 
+     -- bashls 個別設定
+     vim.lsp.config("bashls", {
+       filetypes = { "sh", "bash" },
+       settings = {
+         bashIde = {
+           shellcheckPath = vim.fn.exepath("shellcheck"),
+         },
+       },
+     })
+
      -- sourcekit-lsp for Swift (Masonでは管理不可、Xcode同梱)
      vim.lsp.config("sourcekit", {
        capabilities = vim.tbl_deep_extend("force", capabilities, {
