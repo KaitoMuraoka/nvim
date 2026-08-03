@@ -10,6 +10,9 @@ return {
 
 			-- デフォルトのIMEにままに設定
 			set_previous_events = { "InsertEnter" },
+
+			-- 起動時にも強制的にデフォルトIMEへ切り替える
+			set_default_events = { "VimEnter", "InsertLeave", "CmdlineLeave" },
 		})
 	end,
 }
