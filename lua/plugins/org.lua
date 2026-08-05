@@ -16,10 +16,11 @@ return {
 					template = "* TODO %?\n  %U",
 					target = "~/org/inbox.org",
 				},
-				r = {
-					description = "Routine",
-					template = "* TODO %?\n  SCHEDULED: %t",
-					target = "~/org/routine.org",
+				l = {
+					description = "Today I Learned",
+					template = "* %?",
+					target = "~/org/til.org",
+					datetree = true,
 				},
 			},
 		})
