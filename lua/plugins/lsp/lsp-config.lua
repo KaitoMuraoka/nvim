@@ -90,6 +90,19 @@ return {
      })
      vim.lsp.enable("ruby_lsp")
 
+     -- rust-analyzer (Masonでは管理せず rustup 経由のバイナリを使う)
+     vim.lsp.config("rust_analyzer", {
+       capabilities = capabilities,
+       settings = {
+         ["rust-analyzer"] = {
+           check = {
+             command = "clippy",
+           },
+         },
+       },
+     })
+     vim.lsp.enable("rust_analyzer")
+
      -- LSPキーマップ
      vim.api.nvim_create_autocmd("LspAttach", {
        callback = function(args)
