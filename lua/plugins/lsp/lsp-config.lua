@@ -60,8 +60,15 @@ return {
        },
      })
 
+     -- ts_ls 個別設定（Biome採用リポジトリではフォーマットをBiome側に一本化）
+     vim.lsp.config("ts_ls", {
+       on_attach = function(client)
+         client.server_capabilities.documentFormattingProvider = false
+       end,
+     })
+
      require("mason-lspconfig").setup({
-       ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls", "gopls", "bashls" },
+       ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls", "emmet_ls", "prismals", "kotlin_language_server", "jdtls", "gopls", "bashls", "biome" },
        automatic_enable = {
          exclude = { "stylua" },
        },
