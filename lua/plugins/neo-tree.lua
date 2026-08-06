@@ -28,6 +28,22 @@ return {
       },
     })
 
+    -- nvim <dir> のようにディレクトリを引数に起動した場合、shell の cwd では
+    -- なくそのディレクトリを基準にする（cwd を合わせないと neo-tree が
+    -- ウィンドウ再表示時に shell の cwd 側へルートを再同期してしまうため）
+    vim.api.nvim_create_autocmd("VimEnter", {
+      once = true,
+      callback = function()
+        if vim.fn.argc(-1) == 1 then
+          local arg = vim.fn.argv(0)
+          local stat = vim.uv.fs_stat(arg)
+          if stat and stat.type == "directory" then
+            vim.cmd.cd(arg)
+          end
+        end
+      end,
+    })
+
     -- neo-tree のツリーウィンドウでも行番号・相対行番号を表示する
     -- neo-tree はウィンドウ生成時に `setlocal nonumber norelativenumber` を
     -- 強制実行するため、FileType だけでなく WinEnter でも上書きする
