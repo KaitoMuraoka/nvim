@@ -90,6 +90,39 @@ return {
      })
      vim.lsp.enable("ruby_lsp")
 
+     -- solargraph は「補完専用」の補助として ruby-lsp と併用する。
+     -- ruby-lsp の TypeInferrer はレシーバがリテラル/定数/Klass.new の時しか型を
+     -- 解決できず(それ以外は変数名を CamelCase 化して同名定数を探すだけ)、
+     -- gets.to_i のようなメソッドチェーンや Kernel#gets 自体が補完できない。
+     -- solargraph は YARD の core ドキュメントから戻り値型を知っているため補える。
+     -- 診断・定義ジャンプ・フォーマット等は ruby-lsp 側に一本化して衝突を避ける。
+     -- (Masonでは管理せず gem install したグローバル版を使う / rbenv shim経由)
+     vim.lsp.config("solargraph", {
+       capabilities = capabilities,
+       settings = {
+         solargraph = {
+           diagnostics = false,
+           formatting = false,
+           useBundler = false,
+         },
+       },
+       on_attach = function(client)
+         for _, cap in ipairs({
+           "definitionProvider",
+           "documentFormattingProvider",
+           "documentRangeFormattingProvider",
+           "documentSymbolProvider",
+           "hoverProvider",
+           "referencesProvider",
+           "renameProvider",
+           "signatureHelpProvider",
+         }) do
+           client.server_capabilities[cap] = nil
+         end
+       end,
+     })
+     vim.lsp.enable("solargraph")
+
      -- rust-analyzer (Masonでは管理せず rustup 経由のバイナリを使う)
      vim.lsp.config("rust_analyzer", {
        capabilities = capabilities,
