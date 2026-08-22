@@ -15,14 +15,15 @@ return {
 		require("mason").setup()
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local LSP = vim.lsp
 
 		-- デフォルトのLSP設定（全サーバーに適用）
-		vim.lsp.config("*", {
+		LSP.config("*", {
 			capabilities = capabilities,
 		})
 
 		-- lua_ls 個別設定
-		vim.lsp.config("lua_ls", {
+		LSP.config("lua_ls", {
 			settings = {
 				Lua = {
 					diagnostics = { globals = { "vim" } },
@@ -31,7 +32,7 @@ return {
 		})
 
 		-- bashls 個別設定
-		vim.lsp.config("bashls", {
+		LSP.config("bashls", {
 			filetypes = { "sh", "bash" },
 			settings = {
 				bashIde = {
@@ -41,7 +42,7 @@ return {
 		})
 
 		-- sourcekit-lsp for Swift (Masonでは管理不可、Xcode同梱)
-		vim.lsp.config("sourcekit", {
+		LSP.config("sourcekit", {
 			capabilities = vim.tbl_deep_extend("force", capabilities, {
 				workspace = {
 					didChangeWatchedFiles = {
@@ -61,7 +62,7 @@ return {
 		})
 
 		-- ts_ls 個別設定（Biome採用リポジトリではフォーマットをBiome側に一本化）
-		vim.lsp.config("ts_ls", {
+		LSP.config("ts_ls", {
 			on_attach = function(client)
 				client.server_capabilities.documentFormattingProvider = false
 			end,
@@ -88,12 +89,12 @@ return {
 		})
 
 		-- sourcekit は Mason 管理外なので手動で有効化
-		vim.lsp.enable("sourcekit")
+		LSP.enable("sourcekit")
 
 		-- ruby-lsp (Masonでは管理せず gem install したグローバル版を使う / rbenv shim経由)
 		-- Railsアプリを検出すると ruby-lsp-rails アドオンを composed bundle に自動追加し、
 		-- モデルのカラム/アソシエーション補完・実行時イントロスペクションを提供する。
-		vim.lsp.config("ruby_lsp", {
+		LSP.config("ruby_lsp", {
 			capabilities = capabilities,
 			init_options = {
 				-- プロジェクトに rubocop があれば自動採用、無ければ無効化（補完は常に動作）
@@ -101,7 +102,7 @@ return {
 			},
 			filetypes = { "ruby", "eruby" },
 		})
-		vim.lsp.enable("ruby_lsp")
+		LSP.enable("ruby_lsp")
 
 		-- solargraph は「補完専用」の補助として ruby-lsp と併用する。
 		-- ruby-lsp の TypeInferrer はレシーバがリテラル/定数/Klass.new の時しか型を
@@ -110,7 +111,7 @@ return {
 		-- solargraph は YARD の core ドキュメントから戻り値型を知っているため補える。
 		-- 診断・定義ジャンプ・フォーマット等は ruby-lsp 側に一本化して衝突を避ける。
 		-- (Masonでは管理せず gem install したグローバル版を使う / rbenv shim経由)
-		vim.lsp.config("solargraph", {
+		LSP.config("solargraph", {
 			capabilities = capabilities,
 			settings = {
 				solargraph = {
@@ -134,10 +135,10 @@ return {
 				end
 			end,
 		})
-		vim.lsp.enable("solargraph")
+		LSP.enable("solargraph")
 
 		-- rust-analyzer (Masonでは管理せず rustup 経由のバイナリを使う)
-		vim.lsp.config("rust_analyzer", {
+		LSP.config("rust_analyzer", {
 			capabilities = capabilities,
 			settings = {
 				["rust-analyzer"] = {
@@ -147,17 +148,17 @@ return {
 				},
 			},
 		})
-		vim.lsp.enable("rust_analyzer")
+		LSP.enable("rust_analyzer")
 
 		-- LSPキーマップ
 		vim.api.nvim_create_autocmd("LspAttach", {
 			callback = function(args)
 				local buf = args.buf
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buf, desc = "Go to definition" })
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover" })
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
-				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "Code action" })
-				vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buf, desc = "References" })
+				vim.keymap.set("n", "gd", LSP.buf.definition, { buffer = buf, desc = "Go to definition" })
+				vim.keymap.set("n", "K", LSP.buf.hover, { buffer = buf, desc = "Hover" })
+				vim.keymap.set("n", "<leader>rn", LSP.buf.rename, { buffer = buf, desc = "Rename" })
+				vim.keymap.set("n", "<leader>ca", LSP.buf.code_action, { buffer = buf, desc = "Code action" })
+				vim.keymap.set("n", "gr", LSP.buf.references, { buffer = buf, desc = "References" })
 				vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = buf, desc = "Diagnostics" })
 				vim.keymap.set("n", "<leader>ey", function()
 					local diagnostics = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
