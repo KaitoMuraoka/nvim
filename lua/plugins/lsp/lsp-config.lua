@@ -154,13 +154,14 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			callback = function(args)
 				local buf = args.buf
-				vim.keymap.set("n", "gd", LSP.buf.definition, { buffer = buf, desc = "Go to definition" })
-				vim.keymap.set("n", "K", LSP.buf.hover, { buffer = buf, desc = "Hover" })
-				vim.keymap.set("n", "<leader>rn", LSP.buf.rename, { buffer = buf, desc = "Rename" })
-				vim.keymap.set("n", "<leader>ca", LSP.buf.code_action, { buffer = buf, desc = "Code action" })
-				vim.keymap.set("n", "gr", LSP.buf.references, { buffer = buf, desc = "References" })
-				vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = buf, desc = "Diagnostics" })
-				vim.keymap.set("n", "<leader>ey", function()
+				local keymap = vim.keymap
+				keymap.set("n", "gd", LSP.buf.definition, { buffer = buf, desc = "Go to definition" })
+				keymap.set("n", "K", LSP.buf.hover, { buffer = buf, desc = "Hover" })
+				keymap.set("n", "<leader>rn", LSP.buf.rename, { buffer = buf, desc = "Rename" })
+				keymap.set("n", "<leader>ca", LSP.buf.code_action, { buffer = buf, desc = "Code action" })
+				keymap.set("n", "gr", LSP.buf.references, { buffer = buf, desc = "References" })
+				keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = buf, desc = "Diagnostics" })
+				keymap.set("n", "<leader>ey", function()
 					local diagnostics = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
 					if #diagnostics == 0 then
 						vim.notify("No diagnostics on this line", vim.log.levels.INFO)
