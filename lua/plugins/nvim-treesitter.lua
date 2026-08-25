@@ -15,6 +15,7 @@ return {
       "python",
       "html",
       "css",
+      "scss",
       "json",
       "yaml",
       "markdown",
